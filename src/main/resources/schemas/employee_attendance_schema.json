@@ -1,0 +1,13 @@
+{
+  "fileType": "employee_attendance",
+  "mode": "DYNAMIC",
+  "columns": {
+    "employee_id":     { "csvColumn": "EmployeeID",      "type": "int" },
+    "name":            { "csvColumn": "Name",            "type": "string" },
+    "department":      { "csvColumn": "Department",      "type": "string" },
+    "check_in_time":   { "csvColumn": "CheckIn",         "type": "timestamp" },
+    "check_out_time":  { "csvColumn": "CheckOut",        "type": "timestamp" },
+    "work_hours":      { "csvColumn": "WorkHours",       "type": "double" },
+    "status":          { "csvColumn": "Status",          "type": "string" }
+  }
+}

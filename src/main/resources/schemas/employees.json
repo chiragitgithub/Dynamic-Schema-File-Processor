@@ -1,0 +1,24 @@
+{
+  "tableName": "employees",
+  "mode": "DYNAMIC",
+  "columns": {
+    "id": {
+      "csvColumn": "ID",
+      "type": "int",
+      "transform": null,
+      "primaryKey": true
+    },
+    "name": {
+      "csvColumn": "Name",
+      "type": "string",
+      "transform": "uppercase",
+      "primaryKey": false
+    },
+    "email": {
+      "csvColumn": "Email",
+      "type": "string",
+      "transform": "lowercase",
+      "primaryKey": false
+    }
+  }
+}

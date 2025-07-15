@@ -1,0 +1,28 @@
+{
+  "fileType": "crowdstrike_alerts",
+  "mode": "DYNAMIC",
+  "columns": {
+    "alert_id":               { "csvColumn": "Alert ID",               "type": "string" },
+    "display_name":           { "csvColumn": "Display Name",           "type": "string" },
+    "description":            { "csvColumn": "Description",            "type": "string" },
+    "severity":               { "csvColumn": "Severity",               "type": "string" },
+    "confidence":             { "csvColumn": "Confidence",             "type": "string" },
+    "status":                 { "csvColumn": "Status",                 "type": "string" },
+    "tactic":                 { "csvColumn": "Tactic",                 "type": "string" },
+    "tactic_id":              { "csvColumn": "Tactic ID",              "type": "string" },
+    "technique":              { "csvColumn": "Technique",              "type": "string" },
+    "technique_id":           { "csvColumn": "Technique ID",           "type": "string" },
+    "product":                { "csvColumn": "Product",                "type": "string" },
+    "scenario":               { "csvColumn": "Scenario",               "type": "string" },
+    "start_time":             { "csvColumn": "Start Time",             "type": "timestamp" },
+    "end_time":               { "csvColumn": "End Time",               "type": "timestamp" },
+    "username":               { "csvColumn": "Username",               "type": "string" },
+    "source_account_name":    { "csvColumn": "Source Account Name",    "type": "string" },
+    "source_account_domain":  { "csvColumn": "Source Account Domain",  "type": "string" },
+    "source_endpoint_hostname": { "csvColumn": "Source Endpoint Hostname", "type": "string" },
+    "source_endpoint_ip":     { "csvColumn": "Source Endpoint IP",     "type": "string" },
+    "location_country_code":  { "csvColumn": "Location Country Code",  "type": "string" },
+    "falcon_host_link":       { "csvColumn": "Falcon Host Link",       "type": "string" },
+    "customer_name":          { "csvColumn": "Customer Name",          "type": "string" }
+  }
+}

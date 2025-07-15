@@ -1,0 +1,10 @@
+{
+  "fileType": "customer",
+  "tableName": "customer_data",
+  "mode": "TABLE",
+  "columns": {
+    "name": { "csvColumn": "Name", "type": "string" },
+    "email": { "csvColumn": "Email", "type": "string" },
+    "age": { "csvColumn": "Age", "type": "int" }
+  }
+}

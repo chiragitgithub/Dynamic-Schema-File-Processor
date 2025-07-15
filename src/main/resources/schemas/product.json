@@ -1,0 +1,8 @@
+{
+  "fileType": "product",
+  "mode": "DYNAMIC",
+  "columns": {
+    "productName": { "csvColumn": "ProductName", "type": "string" },
+    "price": { "csvColumn": "Price", "type": "double" }
+  }
+}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Export Table Data</title>
+</head>
+<body>
+<h2>Export Table Data</h2>
+
+<label>Table Name:</label>
+<input type="text" id="tableName" placeholder="employees"><br>
+
+<label>Primary Key Column Name:</label>
+<input type="text" id="primaryKey" placeholder="e.g. id, employee_id"><br>
+
+<label>ID(s) (comma separated):</label>
+<input type="text" id="ids"><br>
+
+<label>Page:</label>
+<input type="number" id="page" value="0"><br>
+
+<label>Size:</label>
+<input type="number" id="size" value="10"><br>
+
+<label>Format:</label>
+<select id="format">
+    <option value="csv">CSV</option>
+    <option value="excel">Excel (.xlsx)</option>
+    <option value="json">JSON</option>
+</select><br><br>
+
+<button id="exportBtn">Export</button>
+
+<!-- ✅ Embedded JavaScript to handle export -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("exportBtn").addEventListener("click", function () {
+            const baseUrl = "http://localhost:8080"; // Adjust if needed
+
+            const tableName = document.getElementById("tableName").value.trim();
+            const primaryKey = document.getElementById("primaryKey").value.trim();
+            const id = document.getElementById("ids").value.trim();
+            const page = document.getElementById("page").value.trim();
+            const size = document.getElementById("size").value.trim();
+            const format = document.getElementById("format").value;
+
+            if (!tableName || !format || (id && !primaryKey)) {
+                alert("Please provide table name, format, and primary key if using ID(s).");
+                return;
+            }
+
+            let url = `${baseUrl}/api/export?tableName=${encodeURIComponent(tableName)}&format=${encodeURIComponent(format)}&page=${page}&size=${size}`;
+
+            if (id) {
+                url += `&id=${encodeURIComponent(id)}&primaryKey=${encodeURIComponent(primaryKey)}`;
+            }
+
+            console.log("Requesting export from:", url);
+
+            fetch(url)
+                .then(response => {
+                    console.log("Response status:", response.status);
+                    const contentType = response.headers.get("Content-Type");
+                    console.log("Content-Type:", contentType);
+
+                    if (!response.ok) {
+                        throw new Error("Export failed. Server returned status " + response.status);
+                    }
+
+                    return response.blob();
+                })
+                .then(blob => {
+                    console.log("Blob received. Size:", blob.size);
+                    const downloadUrl = window.URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    const extension = format === 'excel' ? 'xlsx' : (format === 'json' ? 'json' : 'csv');
+                    a.href = downloadUrl;
+                    a.download = `${tableName}_export.${extension}`;
+                    document.body.appendChild(a);
+                    a.click();
+                    a.remove();
+                })
+                .catch(error => {
+                    console.error("Export error:", error);
+                    alert("Export failed: " + error.message);
+                });
+        });
+    });
+</script>
+</body>
+</html>

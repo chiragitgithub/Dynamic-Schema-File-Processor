@@ -1,0 +1,24 @@
+{
+  "fileType": "crowdstrike_data",
+  "mode": "DYNAMIC",
+  "columns": {
+    "hostname":         { "csvColumn": "Hostname",         "type": "string" },
+    "upload_date":      { "csvColumn": "UploadDate",       "type": "date" },
+    "serial_number":    { "csvColumn": "SerialNumber",     "type": "string" },
+    "type":             { "csvColumn": "Type",             "type": "string" },
+    "chassis":          { "csvColumn": "Chassis",          "type": "string" },
+    "connection_ip":    { "csvColumn": "ConnectionIP",     "type": "string" },
+    "external_ip":      { "csvColumn": "ExternalIP",       "type": "string" },
+    "first_seen":       { "csvColumn": "FirstSeen",        "type": "timestamp" },
+    "last_seen":        { "csvColumn": "LastSeen",         "type": "timestamp" },
+    "kernel_version":   { "csvColumn": "KernelVersion",    "type": "string" },
+    "last_reboot":      { "csvColumn": "LastReboot",       "type": "timestamp" },
+    "local_ip":         { "csvColumn": "LocalIP",          "type": "string" },
+    "manufacturer":     { "csvColumn": "Manufacturer",     "type": "string" },
+    "os_product_name":  { "csvColumn": "OSProductName",    "type": "string" },
+    "os_version":       { "csvColumn": "OSVersion",        "type": "string" },
+    "platform":         { "csvColumn": "Platform",         "type": "string" },
+    "sensor_tags":      { "csvColumn": "SensorTags",       "type": "string" },
+    "status":           { "csvColumn": "Status",           "type": "string" }
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "fileType": "sentinelone_data",
+  "tableName": "sentinelone_data",
+  "mode": "TABLE",
+  "columns": {
+    "hostname": {
+      "csvColumn": "Hostname",
+      "type": "string",
+      "transform": "trim"
+    },
+    "agent_id": {
+      "csvColumn": "AgentID",
+      "type": "string"
+    },
+    "group": {
+      "csvColumn": "Group",
+      "type": "string"
+    },
+    "agent_version": {
+      "csvColumn": "AgentVersion",
+      "type": "string"
+    },
+    "operating_system": {
+      "csvColumn": "OperatingSystem",
+      "type": "string"
+    },
+    "ip": {
+      "csvColumn": "IP",
+      "type": "string"
+    },
+    "external_ip": {
+      "csvColumn": "ExternalIP",
+      "type": "string"
+    },
+    "mac_address": {
+      "csvColumn": "MACAddress",
+      "type": "string"
+    },
+    "site": {
+      "csvColumn": "Site",
+      "type": "string"
+    },
+    "status": {
+      "csvColumn": "Status",
+      "type": "string",
+      "transform": "uppercase"
+    },
+    "threat_count": {
+      "csvColumn": "ThreatCount",
+      "type": "int"
+    }
+  }
+}

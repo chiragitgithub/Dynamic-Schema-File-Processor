@@ -1,0 +1,38 @@
+{
+  "fileType": "students",
+  "tableName": "students",
+  "mode": "TABLE",
+  "columns": {
+    "id": {
+      "csvColumn": "ID",
+      "type": "int",
+      "primaryKey": true
+    },
+    "name": {
+      "csvColumn": "NAME",
+      "type": "string",
+      "transform": "trim"
+    },
+    "gender": {
+      "csvColumn": "GENDER",
+      "type": "string",
+      "transform": "uppercase"
+    },
+    "age": {
+      "csvColumn": "AGE",
+      "type": "int"
+    },
+    "is_active": {
+      "csvColumn": "IS_ACTIVE",
+      "type": "boolean"
+    },
+    "join_date": {
+      "csvColumn": "JOIN_DATE",
+      "type": "date"
+    },
+    "last_login": {
+      "csvColumn": "LAST_LOGIN",
+      "type": "timestamp"
+    }
+  }
+}

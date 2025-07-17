@@ -102,7 +102,7 @@ public class FileProcessorServiceImpl implements FileProcessorService {
             placeholders.append("?,");
 
             Object value = entry.getValue();
-            
+
             if (value instanceof OffsetDateTime offsetDateTime) {
                 value = offsetDateTime.toLocalDateTime();
             }

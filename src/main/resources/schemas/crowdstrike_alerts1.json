@@ -1,0 +1,30 @@
+{
+  "fileType": "crowdstrike_alerts",
+  "mode": "DYNAMIC",
+  "columns": {
+    "id":                       { "csvColumn": "id",                       "type": "string" },
+    "alert_id":                 { "csvColumn": "alert_id",                 "type": "string" },
+    "confidence":               { "csvColumn": "confidence",               "type": "string" },
+    "customer_name":            { "csvColumn": "customer_name",            "type": "string" },
+    "description":              { "csvColumn": "description",              "type": "string" },
+    "display_name":             { "csvColumn": "display_name",             "type": "string" },
+    "end_time":                 { "csvColumn": "end_time",                 "type": "timestamp" },
+    "falcon_host_link":         { "csvColumn": "falcon_host_link",         "type": "string" },
+    "location_country_code":    { "csvColumn": "location_country_code",    "type": "string" },
+    "product":                  { "csvColumn": "product",                  "type": "string" },
+    "scenario":                 { "csvColumn": "scenario",                 "type": "string" },
+    "severity":                 { "csvColumn": "severity",                 "type": "string" },
+    "source_account_domain":    { "csvColumn": "source_account_domain",    "type": "string" },
+    "source_account_name":      { "csvColumn": "source_account_name",      "type": "string" },
+    "source_endpoint_hostname": { "csvColumn": "source_endpoint_hostname", "type": "string" },
+    "source_endpoint_ip":       { "csvColumn": "source_endpoint_ip",       "type": "string" },
+    "start_time":               { "csvColumn": "start_time",               "type": "timestamp" },
+    "status":                   { "csvColumn": "status",                   "type": "string" },
+    "tactic":                   { "csvColumn": "tactic",                   "type": "string" },
+    "tactic_id":                { "csvColumn": "tactic_id",                "type": "string" },
+    "technique":                { "csvColumn": "technique",                "type": "string" },
+    "technique_id":             { "csvColumn": "technique_id",             "type": "string" },
+    "username":                 { "csvColumn": "username",                 "type": "string" },
+    "upload_date":              { "csvColumn": "upload_date",              "type": "date" }
+  }
+}

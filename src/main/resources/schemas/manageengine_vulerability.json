@@ -1,0 +1,22 @@
+{
+  "fileType": "vulnerability_data",
+  "mode": "DYNAMIC",
+  "columns": {
+    "id":                    { "csvColumn": "id",                    "type": "string" },
+    "cve_ids":              { "csvColumn": "cve_ids",              "type": "string" },
+    "cvss_2_score":         { "csvColumn": "cvss_2_score",         "type": "string" },
+    "cvss_3_score":         { "csvColumn": "cvss_3_score",         "type": "string" },
+    "hostname":             { "csvColumn": "hostname",             "type": "string" },
+    "ip_address":           { "csvColumn": "ip_address",           "type": "string" },
+    "patch":                { "csvColumn": "patch",                "type": "string" },
+    "reference_links":      { "csvColumn": "reference_links",      "type": "string" },
+    "resource_id":          { "csvColumn": "resource_id",          "type": "string" },
+    "resource_name":        { "csvColumn": "resource_name",        "type": "string" },
+    "severity":             { "csvColumn": "severity",             "type": "string" },
+    "updated_time":         { "csvColumn": "updated_time",         "type": "timestamp" },
+    "vulnerability_id":     { "csvColumn": "vulnerability_id",     "type": "string" },
+    "vulnerability_name":   { "csvColumn": "vulnerability_name",   "type": "string" },
+    "vulnerability_status": { "csvColumn": "vulnerability_status", "type": "string" },
+    "upload_date":          { "csvColumn": "upload_date",          "type": "date" }
+  }
+}

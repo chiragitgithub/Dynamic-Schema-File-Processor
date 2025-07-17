@@ -1,0 +1,19 @@
+{
+  "fileType": "file_metadata",
+  "mode": "DYNAMIC",
+  "columns": {
+    "hostname":       { "csvColumn": "Hostname",       "type": "string" },
+    "customer_name":  { "csvColumn": "Customer Name",  "type": "string" },
+    "file_id":        { "csvColumn": "File ID",        "type": "string" },
+    "agent_id":       { "csvColumn": "Agent ID",       "type": "string" },
+    "sha256":         { "csvColumn": "SHA256",         "type": "string" },
+    "file_path":      { "csvColumn": "File Path",      "type": "string" },
+    "filename":       { "csvColumn": "Filename",       "type": "string" },
+    "path_state":     { "csvColumn": "Path State",     "type": "string" },
+    "file_state":     { "csvColumn": "File State",     "type": "string" },
+    "username":       { "csvColumn": "Username",       "type": "string" },
+    "date_created":   { "csvColumn": "Date Created",   "type": "timestamp" },
+    "date_updated":   { "csvColumn": "Date Updated",   "type": "timestamp" },
+    "extracted":      { "csvColumn": "Extracted",      "type": "string" }
+  }
+}

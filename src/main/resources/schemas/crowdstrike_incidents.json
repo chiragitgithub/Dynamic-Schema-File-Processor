@@ -1,0 +1,27 @@
+{
+  "fileType": "crowdstrike_incidents",
+  "mode": "DYNAMIC",
+  "columns": {
+    "id":              { "csvColumn": "id",               "type": "string" },
+    "company":         { "csvColumn": "company",          "type": "string" },
+    "detect_date":     { "csvColumn": "detect_date",      "type": "date" },
+    "detect_details":  { "csvColumn": "detect_details",   "type": "string" },
+    "detectdescription":{ "csvColumn": "detectdescription","type": "string" },
+    "detectid":        { "csvColumn": "detectid",         "type": "string" },
+    "device_type":     { "csvColumn": "device_type",      "type": "string" },
+    "disposition":     { "csvColumn": "disposition",      "type": "string" },
+    "falconhostlink":  { "csvColumn": "falconhostlink",   "type": "string" },
+    "file_name":       { "csvColumn": "file_name",        "type": "string" },
+    "hostname":        { "csvColumn": "hostname",         "type": "string" },
+    "objective":       { "csvColumn": "objective",        "type": "string" },
+    "process_id":      { "csvColumn": "process_id",       "type": "string" },
+    "scenario":        { "csvColumn": "scenario",         "type": "string" },
+    "sensor_tags":     { "csvColumn": "sensor_tags",      "type": "string" },
+    "severity":        { "csvColumn": "severity",         "type": "string" },
+    "status":          { "csvColumn": "status",           "type": "string" },
+    "tactic":          { "csvColumn": "tactic",           "type": "string" },
+    "technique":       { "csvColumn": "technique",        "type": "string" },
+    "user_name":       { "csvColumn": "user_name",        "type": "string" },
+    "upload_date":     { "csvColumn": "upload_date",      "type": "date" }
+  }
+}

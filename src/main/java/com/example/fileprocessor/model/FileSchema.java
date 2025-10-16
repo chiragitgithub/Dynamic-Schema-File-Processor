@@ -6,10 +6,9 @@ public class FileSchema {
 
     private String fileType;
     private String tableName;
-    private String mode; // "TABLE" or "DYNAMIC"
+    private String mode;
     private Map<String, ColumnSchema> columns;
-
-    // Getters and Setters
+    private Character delimiter;
 
     public String getFileType() {
         return fileType;
@@ -41,5 +40,13 @@ public class FileSchema {
 
     public void setColumns(Map<String, ColumnSchema> columns) {
         this.columns = columns;
+    }
+
+    public Character getDelimiter() {
+        return delimiter;
+    }
+
+    public void setDelimiter(Character delimiter) {
+        this.delimiter = delimiter;
     }
 }

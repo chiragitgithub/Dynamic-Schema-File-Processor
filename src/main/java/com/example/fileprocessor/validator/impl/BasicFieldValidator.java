@@ -1,3 +1,5 @@
+
+
 package com.example.fileprocessor.validator.impl;
 
 import java.sql.Date;
@@ -5,7 +7,8 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
-import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.List;
 
 public class BasicFieldValidator {
 
@@ -60,33 +63,47 @@ public class BasicFieldValidator {
     }
 
     private static Date parseDate(String value) throws ParseException {
-        // Accepts yyyy-MM-dd
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        java.util.Date utilDate = sdf.parse(value);
-        return new Date(utilDate.getTime());
+        // Support multiple date formats
+        List<String> patterns = Arrays.asList("dd-MM-yyyy", "yyyy-MM-dd");
+        ParseException lastEx = null;
+
+        for (String pattern : patterns) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                java.util.Date utilDate = sdf.parse(value);
+                return new Date(utilDate.getTime());
+            } catch (ParseException e) {
+                lastEx = e;
+            }
+        }
+        throw lastEx;
     }
 
     private static Object parseFlexibleTimestamp(String value) {
+        // Support multiple timestamp formats
+        List<String> patterns = Arrays.asList(
+                "dd-MM-yyyy HH:mm:ss",
+                "yyyy-MM-dd HH:mm:ss",
+                "dd-MM-yyyy",
+                "yyyy-MM-dd"
+        );
+
+        // Try Java Time API first
         try {
-
-            OffsetDateTime odt = OffsetDateTime.parse(value);
-            return odt;
-        } catch (Exception ignore) {
-        }
+            return OffsetDateTime.parse(value);
+        } catch (Exception ignore) {}
 
         try {
+            return LocalDateTime.parse(value);
+        } catch (Exception ignore) {}
 
-            LocalDateTime ldt = LocalDateTime.parse(value);
-            return ldt;
-        } catch (Exception ignore) {
-        }
-
-        try {
-
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            java.util.Date utilDate = sdf.parse(value);
-            return new Timestamp(utilDate.getTime());
-        } catch (Exception ignore) {
+        // Fallback to SimpleDateFormat patterns
+        for (String pattern : patterns) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+                java.util.Date utilDate = sdf.parse(value);
+                return new Timestamp(utilDate.getTime());
+            } catch (Exception ignore) {}
         }
 
         throw new IllegalArgumentException("Unparseable timestamp: \"" + value + "\"");

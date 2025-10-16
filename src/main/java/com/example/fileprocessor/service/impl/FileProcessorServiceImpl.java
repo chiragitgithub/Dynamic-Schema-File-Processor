@@ -1,3 +1,4 @@
+
 package com.example.fileprocessor.service.impl;
 
 import com.example.fileprocessor.model.ColumnSchema;
@@ -38,13 +39,17 @@ public class FileProcessorServiceImpl implements FileProcessorService {
     public List<ValidationError> processFile(MultipartFile file, String fileType, String mode) throws Exception {
         System.out.println("Processing file with mode: " + mode);
         if (!"TABLE".equalsIgnoreCase(mode) && !"DYNAMIC".equalsIgnoreCase(mode)) {
-            System.out.println("Invalid mode detected: " + mode);
             throw new IllegalArgumentException("Invalid mode. Allowed values are: TABLE or DYNAMIC");
         }
 
         FileSchema schema = schemaReader.readSchema(fileType);
         List<ValidationError> errors = new ArrayList<>();
-        List<Map<String, Object>> rows = fileParser.parse(file, schema, errors);
+
+
+        // Use comma as default if delimiter not set
+        char delimiter = schema.getDelimiter() != null ? schema.getDelimiter() : ',';
+
+        List<Map<String, Object>> rows = fileParser.parse(file, schema, errors, delimiter);
 
         if ("DYNAMIC".equalsIgnoreCase(mode)) {
             dynamicTableCreator.createDynamicTableIfNotExists(fileType, schema);
@@ -55,7 +60,7 @@ public class FileProcessorServiceImpl implements FileProcessorService {
                 if ("DYNAMIC".equalsIgnoreCase(mode)) {
                     insertOrUpdateRow(fileType, rows.get(i), schema);
                 } else {
-                    insertRow(schema.getTableName(), rows.get(i));
+                    insertRow(schema.getTableName(), rows.get(i), schema);
                 }
             }
         }
@@ -67,7 +72,9 @@ public class FileProcessorServiceImpl implements FileProcessorService {
         return errors.stream().anyMatch(e -> e.getRowNumber() == rowNum);
     }
 
-    private void insertRow(String tableName, Map<String, Object> row) {
+    private void insertRow(String tableName, Map<String, Object> row, FileSchema schema) {
+        handleDynamicColumnTypes(tableName, row, schema);
+
         StringBuilder columns = new StringBuilder();
         StringBuilder placeholders = new StringBuilder();
         List<Object> values = new ArrayList<>();
@@ -77,7 +84,6 @@ public class FileProcessorServiceImpl implements FileProcessorService {
             placeholders.append("?,");
 
             Object value = entry.getValue();
-
             if (value instanceof OffsetDateTime offsetDateTime) {
                 value = offsetDateTime.toLocalDateTime();
             }
@@ -93,6 +99,8 @@ public class FileProcessorServiceImpl implements FileProcessorService {
     }
 
     private void insertOrUpdateRow(String tableName, Map<String, Object> row, FileSchema schema) {
+        handleDynamicColumnTypes(tableName, row, schema);
+
         StringBuilder columns = new StringBuilder();
         StringBuilder placeholders = new StringBuilder();
         List<Object> values = new ArrayList<>();
@@ -102,7 +110,6 @@ public class FileProcessorServiceImpl implements FileProcessorService {
             placeholders.append("?,");
 
             Object value = entry.getValue();
-
             if (value instanceof OffsetDateTime offsetDateTime) {
                 value = offsetDateTime.toLocalDateTime();
             }
@@ -135,5 +142,35 @@ public class FileProcessorServiceImpl implements FileProcessorService {
         }
 
         jdbcTemplate.update(sql, values.toArray());
+    }
+
+    private void handleDynamicColumnTypes(String tableName, Map<String, Object> row, FileSchema schema) {
+        for (Map.Entry<String, Object> entry : row.entrySet()) {
+            String colName = entry.getKey();
+            ColumnSchema colSchema = schema.getColumns().get(colName);
+            Object value = entry.getValue();
+
+            if (colSchema != null && "string".equalsIgnoreCase(colSchema.getType()) && value != null) {
+                String strVal = value.toString();
+                if (strVal.length() > 255) {
+                    checkAndAlterColumnIfNeeded(tableName, colName);
+                }
+            }
+        }
+    }
+
+    /**
+     * Dynamically alters column type to TEXT if it's currently VARCHAR
+     */
+    private void checkAndAlterColumnIfNeeded(String tableName, String columnName) {
+        String checkSql = "SELECT data_type FROM information_schema.columns " +
+                "WHERE table_name = ? AND column_name = ?";
+        String dataType = jdbcTemplate.queryForObject(checkSql, new Object[]{tableName, columnName}, String.class);
+
+        if ("character varying".equalsIgnoreCase(dataType)) {
+            String alterSql = String.format("ALTER TABLE \"%s\" ALTER COLUMN \"%s\" TYPE TEXT", tableName, columnName);
+            jdbcTemplate.execute(alterSql);
+            System.out.println("Altered column " + columnName + " to TEXT dynamically");
+        }
     }
 }
